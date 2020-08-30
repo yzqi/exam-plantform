@@ -3,6 +3,7 @@ package exam.paperContext.domain.model.paper;
 import exam.paperContext.shared.Entity;
 import exam.paperContext.shared.ValueObject;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
@@ -69,6 +70,7 @@ public class Paper implements Entity<Paper> {
     }
 
     @Getter
+    @Builder
     @AllArgsConstructor
     public static class BlankQuiz implements ValueObject<BlankQuiz> {
         private String quizId;
