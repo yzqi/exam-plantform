@@ -7,5 +7,5 @@ public interface BlankQuizRepository {
 
     BlankQuiz findById(BlankQuizId blankQuizId);
 
-    List<BlankQuiz> findAll();
+    List<BlankQuiz> getAll();
 }

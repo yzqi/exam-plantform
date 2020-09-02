@@ -1,5 +1,6 @@
 package exam.paperContext.application;
 
+import exam.paperContext.domain.model.blankQuiz.BlankQuizId;
 import exam.paperContext.domain.model.paper.Paper;
 import exam.paperContext.domain.model.paper.PaperId;
 import exam.paperContext.domain.model.paper.PaperRepository;
@@ -8,6 +9,7 @@ import exam.paperContext.domain.service.BlankQuizDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
@@ -50,7 +52,6 @@ public class PaperApplicationService {
     }
 
     private List<BlankQuizDto> blankQuizFrom(AssemblePaperCommand command) {
-        return command.getQuizzes().stream().map(quiz -> new BlankQuizDto(quiz.getQuizId(),
-                quiz.getScore())).collect(toList());
+        return new ArrayList<>();
     }
 }

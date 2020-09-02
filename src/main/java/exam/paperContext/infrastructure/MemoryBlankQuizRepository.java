@@ -29,7 +29,7 @@ public class MemoryBlankQuizRepository implements BlankQuizRepository {
     }
 
     @Override
-    public List<BlankQuiz> findAll() {
+    public List<BlankQuiz> getAll() {
         return new ArrayList<>(blankQuizSet);
     }
 }

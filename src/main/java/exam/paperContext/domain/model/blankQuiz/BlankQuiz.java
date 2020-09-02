@@ -1,5 +1,7 @@
 package exam.paperContext.domain.model.blankQuiz;
 
+import exam.paperContext.application.CreateBlankQuizCommand;
+import exam.paperContext.application.UpdateBlankQuizCommand;
 import exam.paperContext.shared.Entity;
 import lombok.Getter;
 
@@ -17,8 +19,8 @@ public class BlankQuiz implements Entity<BlankQuiz> {
     private LocalDateTime updatedTime;
     private Boolean isDeleted;
 
-    private BlankQuiz(BlankQuizId id, String createdBy, String content, String referenceAnswer, Integer score) {
-        this.id = id;
+    private BlankQuiz(String createdBy, String content, String referenceAnswer, Integer score) {
+        this.id = BlankQuizId.nextId();
         this.createdBy = createdBy;
         this.content = content;
         this.referenceAnswer = referenceAnswer;
@@ -29,12 +31,26 @@ public class BlankQuiz implements Entity<BlankQuiz> {
         this.updatedTime = LocalDateTime.now();
     }
 
-    public static BlankQuiz create(BlankQuizId id, String createdBy, String content, String referenceAnswer, Integer score) {
-        return new BlankQuiz(id, createdBy, content, referenceAnswer, score);
+    public static BlankQuiz create(CreateBlankQuizCommand command) {
+        return new BlankQuiz(command.getCreatedBy(), command.getContent(),
+                command.getReferenceAnswer(), command.getScore());
+    }
+
+    public void revise(UpdateBlankQuizCommand command) {
+        this.content = command.getContent();
+        this.referenceAnswer = command.getReferenceAnswer();
+        this.score = command.getScore();
+        this.updatedBy = command.getUpdatedBy();
+        this.updatedTime = LocalDateTime.now();
     }
 
     @Override
     public boolean sameIdentityAs(BlankQuiz other) {
         return id.sameValueAs(other.id);
+    }
+
+    public void delete() {
+        this.isDeleted = true;
+        this.updatedTime = LocalDateTime.now();
     }
 }
