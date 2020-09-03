@@ -6,6 +6,7 @@ import exam.paperContext.shared.Entity;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Getter
 public class BlankQuiz implements Entity<BlankQuiz> {
@@ -32,8 +33,19 @@ public class BlankQuiz implements Entity<BlankQuiz> {
     }
 
     public static BlankQuiz create(CreateBlankQuizCommand command) {
+        validateQuiz(command);
         return new BlankQuiz(command.getCreatedBy(), command.getContent(),
                 command.getReferenceAnswer(), command.getScore());
+    }
+
+    private static void validateQuiz(CreateBlankQuizCommand createBlankQuizCommand) {
+        if (Objects.isNull(createBlankQuizCommand.getContent()) || Objects.isNull(createBlankQuizCommand.getReferenceAnswer())
+                || Objects.isNull(createBlankQuizCommand.getScore())) {
+            throw new IllegalQuizException("Missing required field.");
+        }
+        if (createBlankQuizCommand.getScore() > 100 || createBlankQuizCommand.getScore() < 0) {
+            throw new IllegalQuizScoreException("Illegal quiz score.");
+        }
     }
 
     public void revise(UpdateBlankQuizCommand command) {

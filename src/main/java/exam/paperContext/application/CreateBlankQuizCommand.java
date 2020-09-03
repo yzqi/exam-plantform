@@ -11,7 +11,6 @@ import java.util.List;
 @AllArgsConstructor
 public class CreateBlankQuizCommand {
     private String createdBy;
-    private String updatedBy;
     private String content;
     private String referenceAnswer;
     private Integer score;
